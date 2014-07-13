@@ -1,0 +1,31 @@
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+#export XMODIFIERS=@im=fcitx
+#export QT_IM_MODULE=fcitx
+#export GTK_IM_MODULE=fcitx
+#export XIM_PROGRAM=/usr/bin/fcitx
+
+bind 'set completion-ignore-case on'
+
+alias ..="cd .."
+alias cls="clear"
+alias start_proj="xrandr --output VGA-0 --mode 1366x768 --right-of LVDS-0"
+alias end_proj="xrandr --output VGA-0 --off"
+
+parse_git_dirty() {
+	[[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
+}
+parse_git_branch() {
+	git branch 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/(\1$(parse_git_dirty))/"
+}
+
+PS1="\[\033[00;32m\]\u\[\033[01m\]@\[\033[00;36m\]\h\[\033[01m\]:\[\033[00;35m\]\w\[\033[00m\]\\n\[\033[01;30m\]\$(parse_git_branch)\[\033[00m\]\$ "
+
+#fortune | cowsay -n
+#echo
+toilet -f mono9 -F metal "Renlin Li"
+export PATH=$PATH:~/bin/
+#export PATH=$PATH:/opt/springseed/
