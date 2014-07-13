@@ -16,7 +16,8 @@ alias start_proj="xrandr --output VGA-0 --mode 1366x768 --right-of LVDS-0"
 alias end_proj="xrandr --output VGA-0 --off"
 
 parse_git_dirty() {
-	[[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
+	msg="nothing to commit, working directory clean" # this is subject to change
+	[[ $(git status 2> /dev/null | tail -n1) != $msg ]] && echo "*"
 }
 parse_git_branch() {
 	git branch 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/(\1$(parse_git_dirty))/"
