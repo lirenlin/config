@@ -1,0 +1,250 @@
+nmap  <C-h>l <Esc>:nohl<CR>
+set colorcolumn=81
+
+command! -narg=1 Vsb execute 'vertical sb <args>'
+set nocompatible
+filetype off " required!
+ 
+if has('win32') || has('win64')
+set rtp+=~/vimfiles/bundle/vundle/
+call vundle#rc('$HOME/vimfiles/bundle/')
+else
+" Usual quickstart instructions
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+endif
+ 
+" let Vundle manage Vundle
+" " required!
+Bundle 'gmarik/vundle'
+" My Bundles here:
+" original repos on github
+Bundle 'terryma/vim-multiple-cursors'
+ 
+Bundle 'a.vim'
+Bundle 'ervandew/supertab'
+Bundle 'taglist.vim'
+Bundle 'matchit.zip'
+ 
+Bundle 'fholgado/minibufexpl.vim'
+ 
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'tomtom/tlib_vim'
+Bundle 'honza/vim-snippets'
+Bundle 'garbas/vim-snipmate'
+ 
+Bundle 'scrooloose/nerdtree'
+Bundle 'molokai'
+Bundle 'peterhoeg/vim-qml'
+ 
+filetype plugin on 
+set smartindent
+syntax on
+
+hi User1 guifg=#eea040 guibg=#222222
+hi User2 guifg=#dd3333 guibg=#222222
+hi User3 guifg=#ff66ff guibg=#222222
+hi User4 guifg=#a0ee40 guibg=#222222
+hi User5 guifg=#eeee40 guibg=#222222
+set statusline+=%4*\ %<%F%*            "full path
+set statusline+=%2*%m%*                "modified flag
+set statusline+=%1*%=%5l%*             "current line
+set statusline+=%2*/%L%*               "total lines
+set statusline+=%1*%4v\ %*             "virtual column number
+set laststatus=2
+
+
+if !has("gui_running")
+	set t_Co=256
+	"colorscheme desert
+	colorscheme molokai
+	hi clear SpellBad
+	hi SpellBad cterm=underline
+	set cursorline
+	"set cursorcolumn
+else
+	set guioptions-=m
+	set guioptions-=T
+	set guioptions-=r
+	set guioptions-=L
+	colorscheme molokai
+	" set the gui font
+	set guifont=Monospace\ 12
+
+	if has("win32") || has("win64")
+		set guifont=Consolas:h12
+	endif
+
+	" highlight current line
+	hi CursorLine cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+	" hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+	set cursorline
+endif
+
+
+
+
+" map esc key in insert mode
+:imap jj <Esc>
+
+let NERDTreeIgnore = ['\.o$']
+let g:NERDTreeWinPos = "left"
+let g:NERDTreeWinSize = 20
+map <C-N> <Esc>:NERDTreeToggle<CR>
+
+" auto read when file changed by other applications
+set autoread
+
+
+" minibufexplor setting
+let g:miniBufExplForceSyntaxEnable = 1
+let t:miniBufExplAutoUpdate = 1
+
+set wildmenu
+set wildmode=list:longest,full
+if v:version >= 703
+	set wildignorecase
+endif
+
+if v:version >= 704
+	set rnu
+	set nu
+else
+	set nu
+endif
+
+au BufRead,BufNewFile *.qml setfiletype qml
+set nocp
+set showmode
+set history=50
+set mouse=a
+
+
+"colorscheme desert
+"highlight Normal guibg=darkgreen
+"highlight Cursor guibg=red
+"set autochdir
+autocmd BufEnter * silent! lcd %:p:h
+
+" set Tlist_Ctags_Cmd variable for the taglist plugin
+if has('win32')
+	let Tlist_Ctags_Cmd = 'ctags'
+elseif has('unix')
+	let Tlist_Ctags_Cmd = '/usr/bin/ctags'
+endif
+
+let Tlist_WinWidth = 40
+"let Tlist_Use_Right_Window= 1
+let Tlist_Use_Left_Window = 1
+let Tlist_Show_One_File = 1
+let Tlist_Exit_OnlyWindow = 1
+let tlist_cpp_settings = 'c++;n:namespace;v:variable;d:macro;t:typedef;c:class;g:enum;s:struct;u:union;m:member;f:function;p:prototype'
+map <silent> <C-t>t <ESC>:Tlist<CR>
+
+" store standard lib tags
+"let dir = $HOME."/.vim/tags/"
+"if !filereadable(dir."std_tags")
+" silent exec "!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q --sort=yes -f ".expand(dir."std_tags ")."/usr/include/c++/4.4.3/"
+"endif
+"exec "set tags+=".expand(dir."std_tags")
+
+set tags+=$HOME/cscope/tags
+
+if has("cscope")
+	set csprg=/usr/bin/cscope
+	set csto=0
+	set cst
+	set nocsverb
+	"cs add $HOME/cscope/ /work/build/oban-work/src/gcc
+	cs add $HOME/cscope/ $HOME/gcc/gcc
+	set csverb
+endif
+nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-_>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-_>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-_>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <C-_>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-_>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <C-_>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap <C-_>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+
+" std cpp tags
+" set tags+=$HOME/.vim/tags/cpp_tags
+" set tags+=$HOME/.vim/tags/qt4
+" OmniCppComplete
+let OmniCpp_DisplayMode = 1
+let OmniCpp_NamespaceSearch = 1
+let OmniCpp_GlobalScopeSearch = 1
+let OmniCpp_ShowAccess = 1
+let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+let OmniCpp_MayCompleteDot = 1 " autocomplete after .
+let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
+let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
+let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+" automatically open and close the popup menu / preview window
+au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+"au InsertLeave * if pumvisible() == 0|pclose|endif
+set completeopt=menuone,menu,longest,preview
+
+" map tags with shortcut
+map <silent> <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+" rebuild the tags when changes are saved
+"au BufWritePost *.c,*.cpp,*.cc,*.h silent !ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
+
+" set tab as space
+"set expandtab
+"set tabstop=4
+"set shiftwidth=4
+autocmd FileType make setlocal noexpandtab
+" map <TAB> as window exchange key sequence
+"nmap <TAB> <C-w>w
+
+
+" search options
+set incsearch
+set hlsearch
+set ignorecase
+
+" fold settings
+" when close the window, auto save the view
+"au BufWinLeave *.* mkview
+" when open the window, auto load the view
+"au BufWinEnter *.* silent loadview
+
+"map <F8> to open a shell window, use 'exit' or Ctrl-D to go back to vim
+:map <F8> <Esc>:sh<CR>
+
+" IMPORTANT: win32 users will need to have 'shellslash' set so that latex
+" can be called correctly.
+"set shellslash
+
+" IMPORTANT: grep will sometimes skip displaying the file name if you
+" search in a singe file. This will confuse Latex-Suite. Set your grep
+" program to always generate a file-name.
+"set grepprg=grep\ -nH\ $*
+
+" OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
+" 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
+" The following changes the default filetype back to 'tex':
+"let g:tex_flavor='latex'
+
+function! GnuIndent()
+	setlocal cinoptions=>4,n-2,{2,^-2,:2,=2,g0,h2,p5,t0,+2,(0,u0,w1,m1
+	setlocal shiftwidth=2
+	setlocal textwidth=80
+	setlocal tabstop=8
+	"highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+	"match OverLength /\%81v.\+/
+endfunction
+
+au FileType c,cpp call GnuIndent() 
+
+" highlights the background in a subtle red for text that goes over the 80
+" column limit
+
+" function! LineLen()
+" 	highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+" 	match OverLength /\%81v.\+/
+" endfunction
+" 
+" au FileType c,cpp call LineLen() 
