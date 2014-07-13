@@ -221,7 +221,7 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
 bindsym $mod+m exec i3-input -F 'mark %s' -P 'Mark name: '
-bindsym mod+Shift+m exec i3-input -F '[con_mark=%s] focus' -P 'Go to mark: '
+bindsym $mod+Shift+m exec i3-input -F '[con_mark=%s] focus' -P 'Go to mark: '
 bindsym $mod+F12  exec gnome-screensaver-command -l
 bindsym Print  exec gnome-screenshot
 
