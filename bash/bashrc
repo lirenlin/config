@@ -31,6 +31,7 @@ export PATH=$PATH:~/bin/
 bind 'set completion-ignore-case on'
 #set vi editing mode
 #set -o emacs to restore to normal behavior
+#for full command, please refer: http://tiswww.case.edu/php/chet/readline/readline.html#IDX38
 set -o vi
 bind -m vi-insert '"jj": vi-movement-mode'
 bind -m vi-insert '"\C-l": clear-screen'
