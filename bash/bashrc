@@ -8,8 +8,6 @@ alias l='ls -CF'
 #export GTK_IM_MODULE=fcitx
 #export XIM_PROGRAM=/usr/bin/fcitx
 
-bind 'set completion-ignore-case on'
-
 alias ..="cd .."
 alias cls="clear"
 alias start_proj="xrandr --output VGA-0 --mode 1366x768 --right-of LVDS-0"
@@ -29,4 +27,22 @@ PS1="\[\033[00;32m\]\u\[\033[01m\]@\[\033[00;36m\]\h\[\033[01m\]:\[\033[00;35m\]
 #echo
 toilet -f mono9 -F metal "Renlin Li"
 export PATH=$PATH:~/bin/
-#export PATH=$PATH:/opt/springseed/
+
+bind 'set completion-ignore-case on'
+#set vi editing mode
+#set -o emacs to restore to normal behavior
+set -o vi
+bind -m vi-insert '"jj": vi-movement-mode'
+bind -m vi-insert '"\C-l": clear-screen'
+#basic edit
+bind -m vi-insert '"\C-k": kill-line'
+bind -m vi-insert '"\C-u": backward-kill-line'
+bind -m vi-insert '"\ed": kill-word'
+bind -m vi-insert '"\C-w": backward-kill-word'
+#basic movement
+bind -m vi-insert '"\C-a": beginning-of-line'
+bind -m vi-insert '"\C-e": end-of-line'
+bind -m vi-insert '"\ef": forward-word'
+bind -m vi-insert '"\eb": backward-word'
+
+
