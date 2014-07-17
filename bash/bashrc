@@ -45,5 +45,3 @@ bind -m vi-insert '"\C-a": beginning-of-line'
 bind -m vi-insert '"\C-e": end-of-line'
 bind -m vi-insert '"\ef": forward-word'
 bind -m vi-insert '"\eb": backward-word'
-
-
