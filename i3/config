@@ -37,6 +37,10 @@ font pango:Terminus 11px
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+new_window pixel 1
+new_float pixel 1
+bindsym $mod+b border toggle
+
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
 
@@ -198,11 +202,8 @@ for_window [class="Thunderbird" instance="Calendar"] floating enable
 for_window [class="Tasque" instance="Tasque"] floating enable
 for_window [class="Tomboy"] floating enable
 for_window [class="Nautilus" instance="file_progress"] floating enable
-
-new_window pixel 1
-new_float pixel 1
-bindsym $mod+b border toggle
-
+for_window [class="update-manager" instance="Update-manager"] floating enable
+for_window [class="Gdebi-gtk"] floating enable
 
 # assign program to specific workspace
 assign [class="Thunderbird"] 4: Communication
@@ -224,6 +225,7 @@ bindsym $mod+m exec i3-input -F 'mark %s' -P 'Mark name: '
 bindsym $mod+Shift+m exec i3-input -F '[con_mark=%s] focus' -P 'Go to mark: '
 bindsym $mod+F12  exec gnome-screensaver-command -l
 bindsym Print  exec gnome-screenshot
+bindsym $mod+n  exec nautilus
 
 #bindsym $mod+p exec xrandr --output VGA-0 --mode 1366x768 --right-of LVDS-0
 #xrandr --output VGA-0 --off
@@ -239,7 +241,7 @@ exec --no-startup-id gnome-settings-daemon
 exec --no-startup-id xcompmgr
 exec --no-startup-id nm-applet
 exec --no-startup-id gnome-sound-applet
-#exec --no-startup-id feh --bg-scale ~/Pictures/Tie_My_Boat_by_Ray_García.jpg
+exec --no-startup-id feh --bg-scale ~/Pictures/Tie_My_Boat_by_Ray_García.jpg
 #exec --no-startup-id ibus-daemon -x
 exec --no-startup-id gnome-screensaver
 exec --no-startup-id guake
