@@ -4,7 +4,7 @@ set colorcolumn=81
 command! -narg=1 Vsb execute 'vertical sb <args>'
 set nocompatible
 filetype off " required!
- 
+
 if has('win32') || has('win64')
 set rtp+=~/vimfiles/bundle/vundle/
 call vundle#rc('$HOME/vimfiles/bundle/')
@@ -13,30 +13,31 @@ else
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 endif
- 
+
 " let Vundle manage Vundle
 " " required!
 Bundle 'gmarik/vundle'
 " My Bundles here:
 " original repos on github
 Bundle 'terryma/vim-multiple-cursors'
- 
+
 Bundle 'a.vim'
 Bundle 'ervandew/supertab'
 Bundle 'taglist.vim'
 Bundle 'matchit.zip'
- 
+
 Bundle 'fholgado/minibufexpl.vim'
- 
+
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
 Bundle 'honza/vim-snippets'
 Bundle 'garbas/vim-snipmate'
- 
+
 Bundle 'scrooloose/nerdtree'
 Bundle 'molokai'
 Bundle 'peterhoeg/vim-qml'
- 
+Bundle 'bling/vim-airline'
+
 filetype plugin on 
 set smartindent
 syntax on
@@ -246,5 +247,9 @@ au FileType c,cpp call GnuIndent()
 " 	highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 " 	match OverLength /\%81v.\+/
 " endfunction
-" 
-" au FileType c,cpp call LineLen() 
+"
+" au FileType c,cpp call LineLen()
+
+" disable left/right seperator as I haven't install hacked font
+let g:airline_left_sep=""
+let g:airline_right_sep=""
