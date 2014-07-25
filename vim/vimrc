@@ -19,7 +19,7 @@ Bundle 'terryma/vim-multiple-cursors'
 Bundle 'a.vim'
 Bundle 'ervandew/supertab'
 Bundle 'taglist.vim'
-Bundle 'matchit.zip'
+Bundle 'tpope/vim-surround'
 
 Bundle 'fholgado/minibufexpl.vim'
 
