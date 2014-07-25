@@ -41,6 +41,8 @@ command! -narg=1 Vsb execute 'vertical sb <args>'
 filetype plugin on
 set smartindent
 syntax on
+"ignore files when expanding wildcards, useful for vimgrep etc.,
+set wildignore+=*.o,*.swp,*.so,*.a,*.obj
 
 hi User1 guifg=#eea040 guibg=#222222
 hi User2 guifg=#dd3333 guibg=#222222
@@ -101,6 +103,7 @@ set autoread
 let g:miniBufExplForceSyntaxEnable = 1
 let t:miniBufExplAutoUpdate = 1
 
+"command-line completion
 set wildmenu
 set wildmode=list:longest,full
 if v:version >= 703
