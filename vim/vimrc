@@ -3,18 +3,17 @@ filetype off " required!
 
 if has('win32') || has('win64')
 set rtp+=~/vimfiles/bundle/vundle/
-call vundle#rc('$HOME/vimfiles/bundle/')
+call vundle#rc('~/vimfiles/bundle/')
 else
 " Usual quickstart instructions
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 endif
 
-" let Vundle manage Vundle
+" let Vundle manage Vundle, required!!
 Bundle 'gmarik/vundle'
 
-" My Bundles here:
-" original repos on github
+" My Bundles here, original repos on github
 Bundle 'terryma/vim-multiple-cursors'
 
 Bundle 'a.vim'
@@ -33,12 +32,13 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'molokai'
 Bundle 'peterhoeg/vim-qml'
 Bundle 'bling/vim-airline'
+Bundle 'kien/ctrlp.vim'
 
 nmap  <C-h>l <Esc>:nohl<CR>
 set colorcolumn=81
 command! -narg=1 Vsb execute 'vertical sb <args>'
 
-filetype plugin on 
+filetype plugin on
 set smartindent
 syntax on
 
