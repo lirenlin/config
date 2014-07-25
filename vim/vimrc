@@ -33,6 +33,7 @@ Bundle 'molokai'
 Bundle 'peterhoeg/vim-qml'
 Bundle 'bling/vim-airline'
 Bundle 'kien/ctrlp.vim'
+Bundle "Lokaltog/vim-easymotion"
 
 nmap  <C-h>l <Esc>:nohl<CR>
 set colorcolumn=81
