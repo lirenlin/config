@@ -1,7 +1,3 @@
-nmap  <C-h>l <Esc>:nohl<CR>
-set colorcolumn=81
-
-command! -narg=1 Vsb execute 'vertical sb <args>'
 set nocompatible
 filetype off " required!
 
@@ -15,8 +11,8 @@ call vundle#rc()
 endif
 
 " let Vundle manage Vundle
-" " required!
 Bundle 'gmarik/vundle'
+
 " My Bundles here:
 " original repos on github
 Bundle 'terryma/vim-multiple-cursors'
@@ -37,6 +33,10 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'molokai'
 Bundle 'peterhoeg/vim-qml'
 Bundle 'bling/vim-airline'
+
+nmap  <C-h>l <Esc>:nohl<CR>
+set colorcolumn=81
+command! -narg=1 Vsb execute 'vertical sb <args>'
 
 filetype plugin on 
 set smartindent
