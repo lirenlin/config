@@ -1,0 +1,12 @@
+[core]
+        editor = vim
+	autocrlf = false
+[user]
+	email = lirenlin@gmail.com
+	name = Renlin Li
+[push]
+	default = simple
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	ci = commit
+	st = status

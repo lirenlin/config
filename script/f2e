@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+name=$1
+sum=0
+
+usage ()
+{
+	echo "Usage: findlog file_name"
+	echo "       Find the file and open it if a single result is found"
+	echo "       List the results for user to choose if 2-19 results are found"
+	echo "       Simply list all the results if large amount is found matching pattern"
+}
+if [ -z "$name" ]; then
+	usage
+	exit 0
+fi
+
+if [ -z "$EDITOR" ]; then
+	EDITOR="vim"
+fi
+
+file_list=()
+while IFS= read -d $'\0' -r file ; do
+	file_list=("${file_list[@]}" "$file")
+	(( sum++ ))
+done < <(find . -type f -name "$name" -print0)
+
+case $sum in
+	0)
+		echo "Nothing has been found $name"
+		;;
+	1)
+		$EDITOR ${file_list[0]}
+		;;
+	[2-9]|1[0-9])
+		num=0
+		for file in ${file_list[@]}; do
+			echo "[$num]: $file"
+			((num++))
+		done
+
+		read -p "Choose file to edit: " choose
+		if [ -z "$choose" ]; then
+			exit 0
+		elif [ $choose -le $sum ] && [ $choose -ge 0 ]; then
+			$EDITOR ${file_list[$choose]}
+		fi
+		;;
+	*)
+		for file in ${file_list[@]}; do
+			echo "$file"
+		done
+		echo "$sum found"
+		;;
+esac
+
