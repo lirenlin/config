@@ -34,7 +34,8 @@ Bundle 'peterhoeg/vim-qml'
 Bundle 'bling/vim-airline'
 Bundle 'tpope/vim-fugitive'
 Bundle 'kien/ctrlp.vim'
-Bundle "Lokaltog/vim-easymotion"
+"Bundle "Lokaltog/vim-easymotion"
+Bundle "godlygeek/tabular"
 
 nmap  <C-h>l <Esc>:nohl<CR>
 set colorcolumn=81
