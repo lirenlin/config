@@ -36,6 +36,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'kien/ctrlp.vim'
 "Bundle "Lokaltog/vim-easymotion"
 Bundle "godlygeek/tabular"
+Bundle "ntpeters/vim-better-whitespace"
 
 nmap  <C-h>l <Esc>:nohl<CR>
 set colorcolumn=81
