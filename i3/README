@@ -1,0 +1,2 @@
+Get rid of desktop window while launching nautilus in i3
+$ gsettings set org.gnome.desktop.background show-desktop-icons false
