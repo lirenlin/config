@@ -228,13 +228,13 @@ bindsym $mod+F12  exec gnome-screensaver-command -l
 bindsym Print  exec gnome-screenshot
 bindsym $mod+n  exec --no-startup-id "i3-msg 'workspace 7: Doc; exec nautilus'"
 
-#bindsym $mod+p exec xrandr --output VGA-0 --mode 1366x768 --right-of LVDS-0
+bindsym $mod+p exec xrandr --output DP2 --mode 1920x1080 --right-of LVDS1
 #xrandr --output VGA-0 --off
 #xrandr -q
 
-#bindsym XF86AudioMute exec amixer -D pulse set Master 1+ toggle
-#bindsym XF86AudioLowerVolume exec amixer set Master 8%-
-#bindsym XF86AudioRaiseVolume exec amixer set Master 9%+
+bindsym XF86AudioMute exec amixer -D pulse set Master 1+ toggle
+bindsym XF86AudioLowerVolume exec amixer set Master 8%-
+bindsym XF86AudioRaiseVolume exec amixer set Master 9%+
 
 #install the playerctl to do player control
 bindsym XF86AudioStop exec playerctl stop
@@ -255,3 +255,5 @@ exec --no-startup-id fcitx -r --enable fcitx-qimpanel && fcitx-qimpanel
 exec --no-startup-id "sh -c 'sleep 20; exec conky'"
 #exec --no-startup-id xautolock -time 7 -locker i3lock &
 exec --no-startup-id unclutter -noevents
+#xinput list, check the ID of Synaptics TouchPad, and disable it.
+exec --no-startup-id xinput --disable 16
