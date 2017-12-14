@@ -228,7 +228,7 @@ bindsym $mod+F12  exec gnome-screensaver-command -l
 bindsym Print  exec gnome-screenshot
 bindsym $mod+n  exec --no-startup-id "i3-msg 'workspace 7: Doc; exec nautilus'"
 
-bindsym $mod+p exec xrandr --output DP2 --mode 1920x1080 --right-of LVDS1
+bindsym $mod+p exec ~/.i3/xrandr.sh
 #xrandr --output VGA-0 --off
 #xrandr -q
 
@@ -257,3 +257,4 @@ exec --no-startup-id "sh -c 'sleep 20; exec conky'"
 exec --no-startup-id unclutter -noevents
 #xinput list, check the ID of Synaptics TouchPad, and disable it.
 exec --no-startup-id xinput --disable `xinput | grep TouchPad | awk 'match($0, "id=([0-9]+)", arg) {print arg[1]}'`
+exec --no-startup-id ~/bin/xflux -l 52.2 -g 0.1
