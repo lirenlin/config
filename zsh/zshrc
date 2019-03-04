@@ -88,6 +88,9 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias ssh-arm="/usr/local/pulse/PulseClient.sh -h sslvpn1.cambridge.arm.com -u renli01 -r cam-user-auth-home-pulse -U https://sslvpn1.cambridge.arm.com/homepulse"
-alias ssh-arm-desk="ssh renli01@e104453-lin.cambridge.arm.com"
 #export PYTHONPATH=/home/renlin/.local/lib/python2.7/site-packages:$PYTHONPATH
+export PATH="/usr/lib/ccache:$PATH"
+export CCACHE_DIR=/home/renlin/Documents/ccache
+alias tws="/home/renlin/Jts/tws"
+alias cdb="cd ~/Documents/lirenlin.github.io-src/"
+

@@ -1,48 +1,73 @@
 set nocompatible
 filetype off " required!
-
 if has('win32') || has('win64')
-set rtp+=~/vimfiles/bundle/vundle/
-call vundle#rc('~/vimfiles/bundle/')
+    set rtp+=~/vimfiles/bundle/Vundle.vim/
+    call vundle#begin('~/vimfiles/bundle/')
 else
-" Usual quickstart instructions
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+    " Usual quickstart instructions
+    set rtp+=~/.vim/bundle/Vundle.vim/
+    call vundle#begin()
 endif
+" let Vundle manage Vundle, required!
+Plugin 'gmarik/Vundle.vim'
 
-" let Vundle manage Vundle, required!!
-Bundle 'gmarik/vundle'
 
-" My Bundles here, original repos on github
-Bundle 'terryma/vim-multiple-cursors'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 
-Bundle 'a.vim'
-Bundle 'ervandew/supertab'
-Bundle 'taglist.vim'
-Bundle 'tpope/vim-surround'
+Plugin 'kien/ctrlp.vim'
+Plugin 'a.vim'
+Plugin 'fholgado/minibufexpl.vim'
+"Plugin 'Lokaltog/vim-easymotion'
+Plugin 'tpope/vim-surround'
+"Plugin 'godlygeek/tabular'
+Plugin 'vim-scripts/TagHighlight'
+Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'felipec/notmuch-vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'vim-scripts/molokai'
+Plugin 'vim-scripts/taglist.vim'
 
-Bundle 'fholgado/minibufexpl.vim'
+call vundle#end()
 
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'tomtom/tlib_vim'
-Bundle 'honza/vim-snippets'
-Bundle 'garbas/vim-snipmate'
+" Syntax coloring lines that are too long just slows down the world
+set synmaxcol=128
+set ttyfast "u got a fast terminal
+set ttyscroll=3
+set lazyredraw "to avoid scrolling problems
 
-Bundle 'scrooloose/nerdtree'
-Bundle 'molokai'
-Bundle 'peterhoeg/vim-qml'
-Bundle 'bling/vim-airline'
-Bundle 'tpope/vim-fugitive'
-Bundle 'kien/ctrlp.vim'
-"Bundle "Lokaltog/vim-easymotion"
-Bundle "godlygeek/tabular"
-Bundle "ntpeters/vim-better-whitespace"
+set listchars=tab:>-
+set list
 
+" highlight trailing whitespace
+"match Error /\s\+$/
+
+set backupdir=~/vimtmp,.
+set directory=~/vimtmp,.
+set wildignore+=*.o,*.swp,*.so,*.a
+
+let g:CLauthor="Renlin Li"
+let g:CLemail="renlin.li@arm.com"
+command! -narg=0 GenCLBin execute 'GenCL /work/oban-work/src/binutils-gdb'
+command! -narg=0 GenCLGcc execute 'GenCL /work/oban-work/src/gcc'
+command! -narg=0 GenCLGlibc execute 'GenCL /work/oban-work/src/glibc'
+
+"let g:SWRecipient="dsg-compilers@arm.com"
+let g:SWRecipient="renlin.li@arm.com"
+let g:SWMailStart="[Weekly][DSG-GNU] for week ending"
+let g:SWDateFormat="%b %d, %Y"
+
+"map  <A-g>l <Esc>:GenCL<CR>
 nmap  <C-h>l <Esc>:nohl<CR>
+"set textwidth=80
 set colorcolumn=81
-command! -narg=1 Vsb execute 'vertical sb <args>'
 
+command! -narg=1 Vsb execute 'vertical sb <args>'
+command! -narg=0 SoC execute 'source ~/.vimrc'
+
+set nocompatible
 filetype plugin on
+filetype indent on
 set smartindent
 syntax on
 
@@ -51,6 +76,7 @@ hi User2 guifg=#dd3333 guibg=#222222
 hi User3 guifg=#ff66ff guibg=#222222
 hi User4 guifg=#a0ee40 guibg=#222222
 hi User5 guifg=#eeee40 guibg=#222222
+set statusline=%{fugitive#statusline()}
 set statusline+=%4*\ %<%F%*            "full path
 set statusline+=%2*%m%*                "modified flag
 set statusline+=%1*%=%5l%*             "current line
@@ -58,36 +84,34 @@ set statusline+=%2*/%L%*               "total lines
 set statusline+=%1*%4v\ %*             "virtual column number
 set laststatus=2
 
-
 if !has("gui_running")
-	set t_Co=256
-	"colorscheme desert
-	colorscheme molokai
-	hi clear SpellBad
-	hi SpellBad cterm=underline
-	set cursorline
-	"set cursorcolumn
+    set t_Co=256
+    "colorscheme desert
+    colorscheme molokai
+    hi clear SpellBad
+    hi SpellBad cterm=underline
+    hi CursorLine cterm=None ctermbg=238
+    set cursorline
+    "set cursorcolumn
+    let g:rehash256 = 1
 else
-	set guioptions-=m
-	set guioptions-=T
-	set guioptions-=r
-	set guioptions-=L
-	colorscheme molokai
-	" set the gui font
-	set guifont=Monospace\ 12
+    set guioptions-=m
+    set guioptions-=T
+    set guioptions-=r
+    set guioptions-=L
+    colorscheme molokai
+    " set the gui font
+    set guifont=Monospace\ 10
 
-	if has("win32") || has("win64")
-		set guifont=Consolas:h12
-	endif
+    if has("win32") || has("win64")
+        set guifont=Consolas:h10
+    endif
 
-	" highlight current line
-	hi CursorLine cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
-	" hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
-	set cursorline
+    " highlight current line
+    hi CursorLine cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+    " hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+    set cursorline
 endif
-
-
-
 
 " map esc key in insert mode
 :imap jj <Esc>
@@ -95,30 +119,26 @@ endif
 let NERDTreeIgnore = ['\.o$']
 let g:NERDTreeWinPos = "left"
 let g:NERDTreeWinSize = 20
-map <C-N> <Esc>:NERDTreeToggle<CR>
+map <C-N>n <Esc>:NERDTreeToggle<CR>
 
 " auto read when file changed by other applications
 set autoread
 
+if exists('+relativenumber') &&  v:version >= 704 "only allowed in vim 7.4
+    set relativenumber
+    set number
+else
+    set number
+endif
 
 " minibufexplor setting
 let g:miniBufExplForceSyntaxEnable = 1
 let t:miniBufExplAutoUpdate = 1
 
-"ignore files when expanding wildcards, useful for vimgrep etc.,
-set wildignore+=*.o,*.swp,*.so,*.a,*.obj
-"command-line completion
 set wildmenu
 set wildmode=list:longest,full
-if v:version >= 703
-	set wildignorecase
-endif
-
-if v:version >= 704
-	set rnu
-	set nu
-else
-	set nu
+if version >= 703
+    set wildignorecase
 endif
 
 au BufRead,BufNewFile *.qml setfiletype qml
@@ -134,11 +154,12 @@ set mouse=a
 "set autochdir
 autocmd BufEnter * silent! lcd %:p:h
 
+
 " set Tlist_Ctags_Cmd variable for the taglist plugin
 if has('win32')
-	let Tlist_Ctags_Cmd = 'ctags'
+    let Tlist_Ctags_Cmd = 'ctags'
 elseif has('unix')
-	let Tlist_Ctags_Cmd = '/usr/bin/ctags'
+    let Tlist_Ctags_Cmd = '/usr/bin/ctags'
 endif
 
 let Tlist_WinWidth = 40
@@ -156,17 +177,26 @@ map <silent> <C-t>t <ESC>:Tlist<CR>
 "endif
 "exec "set tags+=".expand(dir."std_tags")
 
-set tags+=$HOME/cscope/tags
+"set tags+=$HOME/cscope/tags
 
-if has("cscope")
-	set csprg=/usr/bin/cscope
-	set csto=0
-	set cst
-	set nocsverb
-	"cs add $HOME/cscope/ /work/build/oban-work/src/gcc
-	cs add $HOME/cscope/ $HOME/gcc/gcc
-	set csverb
-endif
+"if has("cscope")
+"    set csprg=/usr/bin/cscope
+"    set csto=0
+"    set cst
+"    set nocsverb
+"    cs add /work/cscope/gcc /work/oban-work/src/gcc
+"    set tags+=/work/cscope/gcc/tags
+"
+"    if ! exists('g:TagHighlightSettings')
+"        let g:TagHighlightSettings = {}
+"    endif
+"    let g:TagHighlightSettings['TagFileDirectory'] = '/work/cscope/gcc/'
+"    let g:TagHighlightSettings['TypesFileDirectory'] = '/work/cscope/gcc/'
+"    let g:TagHighlightSettings['DoNotGenerateTags'] = 1
+"    "cs add $HOME/cscope/gem5 /work/shoji/gem5
+"    "set tags+=$HOME/cscope/gem5/tags
+"    set csverb
+"endif
 nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
 nmap <C-_>g :cs find g <C-R>=expand("<cword>")<CR><CR>
 nmap <C-_>c :cs find c <C-R>=expand("<cword>")<CR><CR>
@@ -203,6 +233,7 @@ map <silent> <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 "set expandtab
 "set tabstop=4
 "set shiftwidth=4
+set modeline
 autocmd FileType make setlocal noexpandtab
 " map <TAB> as window exchange key sequence
 "nmap <TAB> <C-w>w
@@ -213,6 +244,8 @@ set incsearch
 set hlsearch
 set ignorecase
 
+set clipboard=unnamed
+
 " fold settings
 " when close the window, auto save the view
 "au BufWinLeave *.* mkview
@@ -220,7 +253,7 @@ set ignorecase
 "au BufWinEnter *.* silent loadview
 
 "map <F8> to open a shell window, use 'exit' or Ctrl-D to go back to vim
-:map <F8> <Esc>:sh<CR>
+":map <F8> <Esc>:sh<CR>
 
 " IMPORTANT: win32 users will need to have 'shellslash' set so that latex
 " can be called correctly.
@@ -236,16 +269,20 @@ set ignorecase
 " The following changes the default filetype back to 'tex':
 "let g:tex_flavor='latex'
 
+" GNU Coding Standards
 function! GnuIndent()
-	setlocal cinoptions=>4,n-2,{2,^-2,:2,=2,g0,h2,p5,t0,+2,(0,u0,w1,m1
-	setlocal shiftwidth=2
-	setlocal textwidth=80
-	setlocal tabstop=8
-	"highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-	"match OverLength /\%81v.\+/
+    setlocal cindent
+    setlocal cinoptions=>4,n-2,{2,^-2,:2,=2,g0,h2,p5,t0,+2,(0,u0,w1,m1
+    setlocal shiftwidth=2
+    setlocal softtabstop=2
+    setlocal textwidth=79
+    setlocal fo-=ro fo+=cql
+    "highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+    "match OverLength /\%81v.\+/
 endfunction
 
-au FileType c,cpp call GnuIndent() 
+call GnuIndent()
+
 
 " highlights the background in a subtle red for text that goes over the 80
 " column limit
@@ -256,16 +293,46 @@ au FileType c,cpp call GnuIndent()
 " endfunction
 "
 " au FileType c,cpp call LineLen()
+" source ~/.vim/macros/clewn_mappings.vim
 
-" disable left/right seperator as I haven't install hacked font
-let g:airline_left_sep=""
-let g:airline_right_sep=""
-let g:airline_section_b = '%{getcwd()}' "Show path
-let g:airline_section_c = '%t' "show file
+function! LoadTags(project)
+  let l:tag_path = "~/Documents/cscope/"
+  let l:source_path = "~/Documents/"
 
-function! AirlineInit()
-	call airline#parts#define_raw('linenr', '%3l/%3L')
-	call airline#parts#define_accent('linenr', 'bold')
-	let g:airline_section_z = airline#section#create(['%3p%%', g:airline_symbols.linenr, 'linenr', ':%3c'])
+  if a:project == "gcc" || a:project == "binutils-gdb" || a:project == 'llvm'
+    let l:tag_path = l:tag_path . a:project
+    let l:source_path = l:source_path . a:project
+  endif
+
+  if has("cscope")
+    set csprg=/usr/bin/cscope
+    set csto=0
+    set cst
+    set nocsverb
+    exec "cs reset"
+    exec "cs add " . l:tag_path . " " . l:source_path
+    exec ":set tags=" . l:tag_path . "/tags"
+
+    if ! exists('g:TagHighlightSettings')
+      let g:TagHighlightSettings = {}
+    endif
+    let g:TagHighlightSettings['TagFileDirectory'] = l:tag_path
+    let g:TagHighlightSettings['TypesFileDirectory'] = l:tag_path
+    let g:TagHighlightSettings['DoNotGenerateTags'] = 1
+    set csverb
+  endif
 endfunction
-autocmd VimEnter * call AirlineInit()
+
+command! -narg=0 LoadTagGCC call LoadTags("gcc")
+command! -narg=0 LoadTagBIN call LoadTags("binutils-gdb")
+command! -narg=0 LoadTagLLVM call LoadTags("llvm")
+
+hi ExtraWhitespace ctermbg=green
+autocmd FileType markdown EnableWhitespace
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
