@@ -17,7 +17,7 @@ Plugin 'honza/vim-snippets'
 
 Plugin 'kien/ctrlp.vim'
 Plugin 'a.vim'
-Plugin 'fholgado/minibufexpl.vim'
+"Plugin 'fholgado/minibufexpl.vim'
 "Plugin 'Lokaltog/vim-easymotion'
 Plugin 'tpope/vim-surround'
 "Plugin 'godlygeek/tabular'
@@ -27,6 +27,9 @@ Plugin 'felipec/notmuch-vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'vim-scripts/molokai'
 Plugin 'vim-scripts/taglist.vim'
+Plugin 'prabirshrestha/async.vim'
+Plugin 'prabirshrestha/vim-lsp'
+Plugin 'vim-scripts/buffet.vim'
 
 call vundle#end()
 
@@ -296,12 +299,12 @@ call GnuIndent()
 " source ~/.vim/macros/clewn_mappings.vim
 
 function! LoadTags(project)
-  let l:tag_path = "~/Documents/cscope/"
-  let l:source_path = "~/Documents/"
+  let l:tag_path = "~/ctag_cache/"
+  let l:source_path = "~/workspace/maploc/src"
 
-  if a:project == "gcc" || a:project == "binutils-gdb" || a:project == 'llvm'
+  if a:project == "map_loc" || a:project == "gcc" || a:project == 'llvm'
     let l:tag_path = l:tag_path . a:project
-    let l:source_path = l:source_path . a:project
+    "let l:source_path = l:source_path . a:project
   endif
 
   if has("cscope")
@@ -323,9 +326,8 @@ function! LoadTags(project)
   endif
 endfunction
 
-command! -narg=0 LoadTagGCC call LoadTags("gcc")
-command! -narg=0 LoadTagBIN call LoadTags("binutils-gdb")
 command! -narg=0 LoadTagLLVM call LoadTags("llvm")
+command! -narg=0 LoadTagML call LoadTags("map_loc")
 
 hi ExtraWhitespace ctermbg=green
 autocmd FileType markdown EnableWhitespace
@@ -336,3 +338,21 @@ let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+
+
+if executable('cquery')
+  au User lsp_setup call lsp#register_server({
+	\ 'name': 'cquery',
+	\ 'cmd': {server_info->['cquery']},
+	\ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+	\ 'initialization_options': { 'cacheDirectory': '/home/lri2abt/cquery_cache' },
+	\ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+	\ })
+endif
+
+nn <silent> gd :LspDefinition<cr>
+nn <silent> gr :LspReferences<cr>
+nn <f2> :LspRename<cr>
+
+nmap <silent> <C-b>b <ESC>:Bufferlist<CR>
+tnoremap jj <C-\><C-n>
